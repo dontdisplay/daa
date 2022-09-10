@@ -1,0 +1,59 @@
+#include<stdio.h>
+// #include<conio.h>
+int min(int,int);
+
+void printM(int D[10][10],int n){
+    int i,j;
+    for(i=1;i<=n;i++){
+        for(j=1;j<=n;j++)
+            printf("%d ",D[i][j]);
+        printf("\n");
+    }
+}
+
+void floyds(int D[10][10],int n){
+    int i,j,k;
+    for(k=1;k<=n;k++){
+        printf("With %d as intermediate vertex",k);
+        printf("Cost Matrix Now: \n");
+        for(i=1;i<=n;i++){
+            for(j=1;j<=n;j++){
+                if(i==j)
+                    D[i][j]=0;
+                else
+                    D[i][j]=min(D[i][j],D[i][k]+D[k][j]);
+            }
+        }
+        printM(D,n);
+    }
+}
+int min(int a,int b){
+    return (a<b)?a:b;
+}
+
+int main(){
+    int D[10][10],n,i,j;
+    // clrscr();
+    printf("\nEnter the number  of vertices:");
+    scanf("%d",&n);
+    printf("\nEnter the cost of matrix:\n");
+    for(i=1;i<=n;i++){
+        for(j=1;j<=n;j++){
+            scanf("%d",&D[i][j]);
+        }
+    }
+    printf("\nIntial Cost of matrix:\n");
+    printM(D,n);
+
+    floyds(D,n);
+    printf("\nThe Final Cost of Matrix:\n");
+    printM(D,n);
+    printf("\nZThe Shortest paths are:\n");
+    for(i=1;i<=n;i++){
+        for(j=1;j<=n;j++){
+            if(i!=j)
+                printf("\n <%d, %d> ====> %d",i,j,D[i][j]);
+        }
+    }
+    return 0;
+}
