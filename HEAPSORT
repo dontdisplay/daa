@@ -5,7 +5,7 @@
 #define MAX 10000
 int A[MAX];
 
-void exchange(int *p, int *q){
+void swap(int *p, int *q){
     int t;
     t = *p;
     *p = *q;
@@ -24,7 +24,7 @@ void Heapify(int n, int i){
         largest = r;
     }
     if(largest != i){
-        exchange(&A[largest], &A[i]);
+        swap(&A[largest], &A[i]);
         Heapify(n, largest);
     }
 }
@@ -35,7 +35,7 @@ void HeapSort(int n){
             Heapify(n,i);
     }
     for(i = n; i>=2; i--){
-        exchange(&A[i], &A[1]);
+        swap(&A[i], &A[1]);
         Heapify(i-1, 1);
     }
 }
