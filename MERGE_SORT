@@ -2,89 +2,95 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 500
-void getdata(int arr[])
-{
-    int i;
-    
-    for (i = 0; i < MAX; i++)
-    {
-        arr[i] = rand();
-    }
-}
+#define MAX 100000
 
-void sort(int arr[], int low, int mid, int high)
+int a[MAX],b[MAX];
+
+
+void Merge(int low, int mid, int high)
 {
-    int i, j, k, l, b[MAX];
-    l = low;
+    int i, j, k, l;
+    k = low;
 
     i = low;
     j = mid + 1;
-    while ((l <= mid) && (j <= high))
+    while ((i <= mid) && (j <= high))
     {
-        if (arr[l] <= arr[j])
+        if (a[i] <= a[j])
         {
-            b[i] = arr[l];
-            l++;
+            b[k] = a[i];
+            i++;
         }
         else
         {
-            b[i] = arr[j];
+            b[k] = a[j];
             j++;
         }
-        i++;
+        k++;
     }
-    if (l > mid)
+    if (i > mid)
     {
-        for (k = j; k <= high; k++)
+        for (l = j; l <= high; l++)
         {
-            b[i] = arr[k];
-            i++;
+            b[k] = a[l];
+            k++;
         }
     }
     else
     {
-        for (k = l; k <= mid; k++)
+        for (l = i; l <= mid; l++)
         {
-            b[i] = arr[k];
-            i++;
+            b[k] = a[l];
+            k++;
         }
     }
     for (k = low; k <= high; k++)
     {
-        arr[k] = b[k];
+        a[k] = b[k];
     }
 }
 
-void partition(int arr[], int low, int high)
+void Mergesort(int low, int high)
 {
     int mid;
     if (low < high)
     {
         mid = (low + high) / 2;
-        partition(arr, low, mid);
-        partition(arr, mid + 1, high);
-        sort(arr, low, mid, high);
+        Mergesort(low, mid);
+        Mergesort(mid + 1, high);
+        Merge(low, mid, high);
     }
 }
 int main(int argc, char *argv[])
 {
-    int array[MAX];
+
     int n, i;
-    getdata(array);
+    printf("enter the number of elements\n");
+    scanf("%d",&n);
+     for (i = 0; i < n; i++)
+    {
+        a[i] = rand()%100;
+    }
+
+    printf("\nElements before sorting\n");
+    for(i=0;i<n;i++)
+    {
+        printf("%d\t",a[i]);
+    }
+
     clock_t t;
     t = clock();
 
-    partition(array, 0, MAX - 1);
+    Mergesort(0,n-1);
     t = clock() - t;
-    double time_taken = ((double)t) / CLOCKS_PER_SEC; 
-    
-    printf("sorted array\t");
-    for(i=0;i<MAX;i++)
+    double time_taken = ((double)t) / CLOCKS_PER_SEC;
+
+    printf("\nsorted array\n");
+    for(i=0;i<n;i++)
     {
-        printf("%d\t",array[i]);
+        printf("%d\t",b[i]);
     }
 
-    printf("fun() took %f seconds to execute \n", time_taken);
+    printf("\nmergesort took %f seconds to execute \n", time_taken);
     return 0;
 }
