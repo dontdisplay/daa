@@ -3,7 +3,7 @@
 #include<time.h>
 
 #define MAX 10000
-
+int n, A[MAX];
 void exchange(int *p, int *q){
     int t;
     t = *p;
@@ -11,7 +11,7 @@ void exchange(int *p, int *q){
     *q =t;
 }
 
-void Heapify(int *A, int n, int i){
+void Heapify(int n, int i){
     int largest, l, r;
     largest = i;
     l = 2*i; r = 2*i+1;
@@ -24,25 +24,25 @@ void Heapify(int *A, int n, int i){
     }
     if(largest != i){
         exchange(&A[largest], &A[i]);
-        Heapify(A, n, largest);
+        Heapify(n, largest);
     }
 }
 
 void HeapSort(int *A, int n){
     int i;
     for(i = n/2; i>=1; i--){
-            Heapify(A,n,i);
+            Heapify(n,i);
     }
     for(i = n; i>=2; i--){
         exchange(&A[i], &A[1]);
-        Heapify(A, i-1, 1);
+        Heapify(i-1, 1);
     }
 }
 
 
 
 int main(){
-    int i, n, A[MAX], k , j;
+    int i, k , j;
     srand(1);
     time_t start, end;
     double cpu_exe_time;
