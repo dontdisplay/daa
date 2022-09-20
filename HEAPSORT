@@ -59,9 +59,9 @@ int main(){
         printf("%d ", A[i]);
     }
     start = clock();
-    for(int i=0; i<10000; i++){
+    
         HeapSort(n);
-    }
+    
     end = clock();
 
     printf("\nArray after sorting: \n");
