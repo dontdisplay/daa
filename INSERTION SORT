@@ -1,38 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include<time.h>
+
+#define Max 100000000
+
+int A[Max];
+
+
 
 int main()
 {
-    int i,j,n,temp,A[100000];
-    time_t start,end;
-    double cpu_exec_time;
-    printf("How many numbers you are going to enter: ");
+       int i,n,j,temp;
+       double s,e,exec_time;
+    printf("Enter the number of elements");
     scanf("%d",&n);
-    for(i=0;i<n;i++){
-        A[i]=rand()%100;
+    for(i=0;i<n;i++)
+    {
+     A[i]=rand()%100;
     }
 
-    printf("\nThe array elements are: \n");
-    for(i=0;i<n;i++){
-        printf("%d\t",A[i]);
+
+    printf("Elements before sorting are\n");
+    for(i=0;i<n;i++)
+    {
+      printf("%d\t",A[i]);
     }
-    start=clock();
-    for(i=0;i<n;i++){
+
+s=clock();
+
+ for(i=0;i<n;i++)
+    {
         temp=A[i];
         j=i-1;
-        while((temp<A[j])&&(j>=0)){
+        while(A[j]>temp && j>=0)
+        {
             A[j+1]=A[j];
-            j=j-1;
+            j--;
         }
         A[j+1]=temp;
+
+
+
+
     }
-    end=clock();
-    cpu_exec_time=(double)(end-start)/CLOCKS_PER_SEC;
-    printf("Order of Sorted elements:");
-    for(i=0;i<n;i++){
+e=clock();
+
+exec_time=(double)(e-s)/CLOCKS_PER_SEC;
+
+
+
+
+    printf("array after sorting\n");
+
+        for(i=0;i<n;i++)
         printf("%d\t",A[i]);
-    }
-    printf("\n\nExecution time=%lf\n",cpu_exec_time);
-    return 0;
+
+printf("total time taken %lf",exec_time);
+
 }
